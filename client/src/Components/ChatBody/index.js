@@ -1,18 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const ChatBody = ({ messages }) => {
+const ChatBody = ({ messages, lastMessageRef, socket, typingStatus }) => {
   const navigate = useNavigate();
+  const handleTyping = () => {
+    socket.emit("typing", `${localStorage.getItem("userName")} is typing`);
+  };
 
   const handleLeaveChat = () => {
     localStorage.removeItem("userName");
     navigate("/");
     window.location.reload();
   };
-console.log("messages",messages)
   return (
     <>
-      <header className="chat__mainHeader">
+      <header className="chat__mainHeader" onKeyDown={handleTyping}>
+        <div className="message__status">
+          <p>{typingStatus}</p>
+        </div>
         <button className="leaveChat__btn" onClick={handleLeaveChat}>
           LEAVE CHAT
         </button>
@@ -36,10 +41,7 @@ console.log("messages",messages)
             </div>
           )
         )}
-
-        <div className="message__status">
-          <p>Someone is typing...</p>
-        </div>
+        <div ref={lastMessageRef} />
       </div>
     </>
   );

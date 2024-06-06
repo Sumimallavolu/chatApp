@@ -1,0 +1,19 @@
+.form-container {
+  height: 100vh;
+  width: 100%;
+  align-content: center;
+}
+.form-internal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.input-box {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.username_input {
+  width: 300px;
+}
